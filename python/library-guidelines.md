@@ -1,13 +1,12 @@
-Library Guidelines
+# Library Guidelines
 
-Reference guide for library-specific patterns and gotchas. Not loaded automatically — consult
-when working with these libraries.
+Reference guide for library-specific patterns and gotchas. Not loaded automatically — consult when working with these libraries.
 
-requests
+---
 
-The #1 gotcha: requests has no default timeout and will hang forever. A second gotcha:
-requests.Session has no built-in mechanism to enforce a default timeout — setting
-session.timeout = 10 is silently ignored. Enforce it via a thin wrapper:
+## `requests`
+
+The #1 gotcha: `requests` has no default timeout and will hang forever. A second gotcha: `requests.Session` has no built-in mechanism to enforce a default timeout — setting `session.timeout = 10` is silently ignored. Enforce it via a thin wrapper:
 
 ```python
 from requests.adapters import HTTPAdapter
@@ -34,15 +33,13 @@ class BoundSession:
         return response
 ```
 
-- Catch specific exceptions: Timeout, ConnectionError, HTTPError — not broad
-  RequestException.
-- Never call requests.get() inside async def — use
-  asyncio.to_thread(session.get, url).
+- Catch specific exceptions: `Timeout`, `ConnectionError`, `HTTPError` — not broad `RequestException`.
+- Never call `requests.get()` inside `async def` — use `asyncio.to_thread(session.get, url)`.
 - Never hardcode API keys or auth tokens. Use env vars or session-level auth headers.
 
-Testing requests
+### Testing `requests`
 
-Inject a BoundSession mock rather than patching globally:
+Inject a `BoundSession` mock rather than patching globally:
 
 ```python
 @pytest.fixture
@@ -61,22 +58,19 @@ def test_handles_timeout(mock_session):
         client.fetch("/data")
 ```
 
-spec=BoundSession makes the mock reject calls to attributes that don't exist on the real
-class, catching interface drift at test time.
+`spec=BoundSession` makes the mock reject calls to attributes that don't exist on the real class, catching interface drift at test time.
 
-claude-agent-sdk
+---
 
-- query() returns AsyncIterator[Message] — always consume with async for.
-- Type-check messages: isinstance(message, AssistantMessage | ResultMessage).
-  Don't assume structure.
-- Handle SDK exceptions explicitly: CLINotFoundError, ProcessError,
-  CLIJSONDecodeError.
-- Use ClaudeAgentOptions to restrict allowed_tools, set permission_mode, and
-  set system_prompt.
-- Custom tools: @tool decorator + create_sdk_mcp_server() for in-process MCP
-  servers.
-- Load project config with setting_sources=["project"].
-- ANTHROPIC_API_KEY via env var only.
+## `claude-agent-sdk`
+
+- `query()` returns `AsyncIterator[Message]` — always consume with `async for`.
+- Type-check messages: `isinstance(message, AssistantMessage | ResultMessage)`. Don't assume structure.
+- Handle SDK exceptions explicitly: `CLINotFoundError`, `ProcessError`, `CLIJSONDecodeError`.
+- Use `ClaudeAgentOptions` to restrict `allowed_tools`, set `permission_mode`, and set `system_prompt`.
+- Custom tools: `@tool` decorator + `create_sdk_mcp_server()` for in-process MCP servers.
+- Load project config with `setting_sources=["project"]`.
+- `ANTHROPIC_API_KEY` via env var only.
 
 ```python
 from claude_agent_sdk import (
@@ -107,10 +101,9 @@ async def run_agent(prompt: str) -> str | None:
     return None
 ```
 
-Testing claude-agent-sdk
+### Testing `claude-agent-sdk`
 
-asyncio_mode = "auto" applies globally — no @pytest.mark.asyncio needed. Mock
-query() as an async generator:
+`asyncio_mode = "auto"` applies globally — no `@pytest.mark.asyncio` needed. Mock `query()` as an async generator:
 
 ```python
 @pytest.fixture

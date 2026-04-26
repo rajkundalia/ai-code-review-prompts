@@ -21,7 +21,7 @@ Tool-agnostic; paste into any LLM. Iterated on with Claude Code over ~2 months o
 
 ## How I use these
 
-Full workflow, including the "one session per PR" technique and how to keep your own understanding in the loop → [Medium article]({MEDIUM_URL})
+Full workflow, including the "one session per PR" technique and how to keep your own understanding in the loop → [Medium article](https://medium.com/@rajkundalia/how-i-review-prs-with-ai-without-losing-my-own-judgment-f930ad30dc60)
 
 ## Contributing
 

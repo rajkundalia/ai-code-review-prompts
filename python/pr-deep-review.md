@@ -59,6 +59,7 @@ Check against **`best-practices.md`** and **`library-guidelines.md`**. Key areas
 
 - Type hints: modern 3.13 syntax (`list[str]`, `X | None`), no legacy `typing` imports
 - Functions: ≤20 lines, return early, keyword-only args for 3+ params
+- Naming: no single-letter variable names — use descriptive names that convey intent (e.g., `result` not `r`, `directory` not `d`)
 - Error handling: specific exceptions only, `from e` chaining, no bare `except`
 - Logging: lazy formatting (`logger.info("msg %s", arg)`), never f-strings, never `print()`
 - `pathlib.Path` over string manipulation for filesystem ops

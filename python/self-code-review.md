@@ -38,6 +38,7 @@ Check against **`best-practices.md`** and **`library-guidelines.md`**:
 
 - Type hints: modern syntax, no legacy `typing` imports
 - Functions: ≤20 lines, return early, keyword-only args for 3+ params
+- Naming: no single-letter variable names — use descriptive names that convey intent
 - Error handling: specific exceptions, `from e` chaining, no bare `except`
 - Logging: lazy formatting, no f-strings in log calls, no `print()`
 - `pathlib.Path` over string manipulation

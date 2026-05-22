@@ -12,6 +12,7 @@
 ## Style & Structure
 
 - PEP 8 enforced via `ruff`. Max line length: 120. Target: `py313`.
+- Naming: No single-letter variable names. Use descriptive names that convey intent (e.g., `result` not `r`, `directory` not `d`).
 - Trailing commas in all multi-line structures.
 - Absolute imports only. No wildcard imports. No unused imports.
 - Remove dead code — no commented-out blocks, no `TODO` without a linked issue.
@@ -23,6 +24,7 @@
 
 - Modern 3.13 syntax only: `list[str]`, `X | None`, type aliases, inline generics `def f[T](x: T) -> T:`.
 - No legacy imports from `typing` for builtins (`List`, `Dict`, `Optional`, `Tuple`).
+- No `from __future__ import annotations` — unnecessary on 3.11+ where modern syntax works natively.
 - Use `TypeIs` over `TypeGuard`. Use `TypeVar` defaults where appropriate.
 - `# type: ignore` must include error code: `# type: ignore[attr-defined]`.
 

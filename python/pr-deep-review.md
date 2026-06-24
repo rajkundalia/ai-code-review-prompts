@@ -36,7 +36,7 @@ Present findings. **Stop and wait** for me to confirm or dismiss before moving o
 
 ## Phase 3 — Deep Review
 
-Think like a **chief programmer** and a **chief architect**. For each area below, state your finding and your reasoning.
+Think like a **chief programmer** and a **chief architect**. Review the diff independently - Q&A from earlier phases was for *my* understanding, not a substitute this review. For each area below, state your finding and your reasoning.
 
 ### 3a. Production Code
 
